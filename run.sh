@@ -36,7 +36,7 @@ chmod +x $CASTAR_BIN $ONLINK_BIN $PACKET_BIN
 
 # Chạy từng SDK nếu có key
 [ -n "$CASTAR_KEY" ] && echo "[RUN] Starting CastarSDK..." && ./$CASTAR_BIN -key=$CASTAR_KEY &
-[ -n "$ONLINK_KEY" ] && echo "[RUN] Starting OnlinkSDK..." && ./$ONLINK_BIN -key=$ONLINK_KEY &
+[ -n "$ONLINK_KEY" ] && echo "[RUN] Starting OnlinkSDK..." && ./$ONLINK_BIN $ONLINK_KEY &
 [ -n "$PACKET_KEY" ] && echo "[RUN] Starting PacketSDK..." && $PACKET_BIN -appkey=$PACKET_KEY &
 
 wait
