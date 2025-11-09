@@ -4,10 +4,6 @@ RUN apk add --no-cache wget unzip
 
 WORKDIR /usr/local/bin
 
-# Tải và giải nén CastarSDK
-RUN wget https://download.castarsdk.com/linux.zip -O castar.zip && \
-    unzip castar.zip && rm castar.zip
-
 # Tải và giải nén OnlinkSDK
 RUN wget https://download.onlinksdk.com/20250709/onlineSDK_Linux.zip -O onlink.zip && \
     unzip onlink.zip && rm onlink.zip
