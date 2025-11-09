@@ -6,10 +6,10 @@ ARCH="$(uname -m)"
 echo "[INFO] Architecture detected: $ARCH"
 
 case "$ARCH" in
-  x86_64)        CASTAR_BIN="CastarSdk_amd64";  ONLINK_BIN="onlinesdk_amd64";  PACKET_BIN="packetsdk/x86_64/packet_sdk" ;;
-  aarch64|arm64) CASTAR_BIN="CastarSdk_arm";    ONLINK_BIN="onlinesdk_arm64";  PACKET_BIN="packetsdk/aarch64/packet_sdk" ;;
-  armv7l|arm)    CASTAR_BIN="CastarSdk_arm";    ONLINK_BIN="onlinesdk_arm";    PACKET_BIN="packetsdk/armv7l/packet_sdk" ;;
-  i386|i686)     CASTAR_BIN="CastarSdk_386";    ONLINK_BIN="onlinesdk_x86_32"; PACKET_BIN="packetsdk/i686/packet_sdk" ;;
+  x86_64)        CASTAR_BIN="CastarSdk_amd64";  ONLINK_BIN="onlinesdk_amd64" ;;
+  aarch64|arm64) CASTAR_BIN="CastarSdk_arm";    ONLINK_BIN="onlinesdk_arm64" ;;
+  armv7l|arm)    CASTAR_BIN="CastarSdk_arm";    ONLINK_BIN="onlinesdk_arm" ;;
+  i386|i686)     CASTAR_BIN="CastarSdk_386";    ONLINK_BIN="onlinesdk_x86_32" ;;
   *) echo "[ERROR] Unsupported architecture: $ARCH"; exit 1 ;;
 esac
 
@@ -19,7 +19,7 @@ esac
 # Cấp quyền chạy nếu file tồn tại
 [ -f "$CASTAR_BIN" ] && chmod +x "$CASTAR_BIN" || true
 [ -f "$ONLINK_BIN" ] && chmod +x "$ONLINK_BIN" || true
-[ -f "$PACKET_BIN" ] && chmod +x "$PACKET_BIN" || true
+
 
 # Hàm chạy với retry loop
 run_with_retry() {
@@ -41,9 +41,6 @@ if [ -n "${ONLINK_KEY:-}" ]; then
   run_with_retry "OnlinkSDK" ./"$ONLINK_BIN" "$ONLINK_KEY" &
 fi
 
-if [ -n "${PACKET_KEY:-}" ]; then
-  run_with_retry "PacketSDK" ./"$PACKET_BIN" -appkey="$PACKET_KEY" &
-fi
 
 # Giữ container sống
 wait
